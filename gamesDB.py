@@ -1,9 +1,9 @@
-import requests
 import sqlite3
+import requests
 
-sqlite_file = '..db.sqlite3'
+sqlite_file = 'db.sqlite3'
 conn = sqlite3.connect(sqlite_file)
-cursor = conn.execute("SELECT *")
+cursor = conn.execute("SELECT id FROM games_game_genres")
 results = cursor.fetchall()
 print(results)
 
