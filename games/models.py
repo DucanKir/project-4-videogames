@@ -29,8 +29,8 @@ class Game(models.Model):
 
 
 
-    # class Meta:
-    #     unique_together = ['name', 'released',]
+    class Meta:
+        unique_together = ['name', 'released',]
 
 
     def __str__(self):

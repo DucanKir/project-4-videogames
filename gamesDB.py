@@ -3,7 +3,8 @@ import requests
 
 sqlite_file = 'db.sqlite3'
 conn = sqlite3.connect(sqlite_file)
-cursor = conn.execute("SELECT id FROM games_game_genres")
+cursor = conn.cursor()
+cursor.execute("SELECT id FROM games_game_genres")
 results = cursor.fetchall()
 print(results)
 

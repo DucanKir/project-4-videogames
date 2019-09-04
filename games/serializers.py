@@ -31,3 +31,8 @@ class PopulatedGameSerializer(GameSerializer):
 
     genres = GenreSerializer(many=True)
     platforms = PlatformSerializer(many=True)
+
+class GameDeserializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = '__all__'
