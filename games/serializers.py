@@ -1,7 +1,7 @@
 from rest_framework  import serializers
 from jwt_auth.serializers import UserSerializer
 
-from .models import Game, Genre, Platform
+from .models import Game, Genre, Platform, Screenshot, Clip, Store
 
 class GenreSerializer(serializers.ModelSerializer):
 
@@ -19,20 +19,65 @@ class PlatformSerializer(serializers.ModelSerializer):
         model = Platform
         fields = ('id', 'name', 'user')
 
+
+class ScreenshotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Screenshot
+        fields = ('id', 'image', 'game',)
+
+
+class StoreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Store
+        fields = ('id', 'store', 'url_en',)
+
+
+class ClipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Clip
+        fields = ('id', 'clip', 'game',)
+
+
 class GameSerializer(serializers.ModelSerializer):
 
     user = UserSerializer(read_only=True)
+    short_screenshots = ScreenshotSerializer(many=True)
 
     class Meta:
         model = Game
-        fields = ('id', 'released', 'name', 'rating', 'slug', 'genres', 'background_image', 'ratings_count', 'user', 'platforms',)
+        fields = ('id', 'released', 'name', 'rating', 'slug', 'genres', 'background_image', 'ratings_count', 'user', 'platforms', 'short_screenshots', 'playtime', 'clip', 'stores')
+
 
 class PopulatedGameSerializer(GameSerializer):
 
     genres = GenreSerializer(many=True)
     platforms = PlatformSerializer(many=True)
+    clip = ClipSerializer(many=True)
+    stores = StoreSerializer(many=True)
+
 
 class GameDeserializer(serializers.ModelSerializer):
+
+    short_screenshots = ScreenshotSerializer(many=True)
+    clip = ClipSerializer()
+
     class Meta:
         model = Game
         fields = '__all__'
+
+
+    def create(self, validated_data):
+        screenshots_data = validated_data.pop('short_screenshots')
+        stores_data = validated_data.pop('stores')
+
+        clip_data = validated_data.pop('clip')
+        genres = validated_data.pop('genres')
+        platforms = validated_data.pop('platforms')
+        game = Game.objects.create(**validated_data)
+        game.genres.set(genres)
+        game.platforms.set(platforms)
+        game.stores.set(stores_data)
+        Clip.objects.create(game=game, **clip_data)
+        for screenshot_data in screenshots_data:
+            Screenshot.objects.create(game=game, **screenshot_data)
+        return game

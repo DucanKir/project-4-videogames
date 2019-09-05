@@ -1,0 +1,478 @@
+[
+{
+  "model": "games.genre",
+  "pk": 1,
+  "fields": {
+    "name": "Action"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 2,
+  "fields": {
+    "name": "Indie"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 3,
+  "fields": {
+    "name": "Adventure"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 4,
+  "fields": {
+    "name": "RPG"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 5,
+  "fields": {
+    "name": "Strategy"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 6,
+  "fields": {
+    "name": "Shooter"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 7,
+  "fields": {
+    "name": "Casual"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 8,
+  "fields": {
+    "name": "Simulation"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 9,
+  "fields": {
+    "name": "Arcade"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 10,
+  "fields": {
+    "name": "Puzzle"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 11,
+  "fields": {
+    "name": "Platformer"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 12,
+  "fields": {
+    "name": "Racing"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 13,
+  "fields": {
+    "name": "Sports"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 14,
+  "fields": {
+    "name": "Massively Multiplayer"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 15,
+  "fields": {
+    "name": "Family"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 16,
+  "fields": {
+    "name": "Fighting"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 17,
+  "fields": {
+    "name": "Board Games"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 18,
+  "fields": {
+    "name": "Educational"
+  }
+},
+{
+  "model": "games.genre",
+  "pk": 19,
+  "fields": {
+    "name": "Card"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 1,
+  "fields": {
+    "name": "PC"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 2,
+  "fields": {
+    "name": "Xbox One"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 3,
+  "fields": {
+    "name": "PlayStation 4"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 4,
+  "fields": {
+    "name": "iOS"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 5,
+  "fields": {
+    "name": "Android"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 6,
+  "fields": {
+    "name": "macOS"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 7,
+  "fields": {
+    "name": "Linux"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 8,
+  "fields": {
+    "name": "Nintendo Switch"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 9,
+  "fields": {
+    "name": "Nintendo 3DS"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 10,
+  "fields": {
+    "name": "Nintendo DS"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 11,
+  "fields": {
+    "name": "Nintendo DSi"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 12,
+  "fields": {
+    "name": "Xbox 360"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 13,
+  "fields": {
+    "name": "Xbox"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 14,
+  "fields": {
+    "name": "PlayStation 3"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 15,
+  "fields": {
+    "name": "PlayStation 2"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 16,
+  "fields": {
+    "name": "PlayStation"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 17,
+  "fields": {
+    "name": "PS Vita"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 18,
+  "fields": {
+    "name": "PSP"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 19,
+  "fields": {
+    "name": "Wii U"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 20,
+  "fields": {
+    "name": "Wii"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 21,
+  "fields": {
+    "name": "GameCube"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 22,
+  "fields": {
+    "name": "Nintendo 64"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 23,
+  "fields": {
+    "name": "Game Boy Advance"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 24,
+  "fields": {
+    "name": "Game Boy Color"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 25,
+  "fields": {
+    "name": "Game Boy"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 26,
+  "fields": {
+    "name": "SNES"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 27,
+  "fields": {
+    "name": "NES"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 28,
+  "fields": {
+    "name": "Classic Macintosh"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 29,
+  "fields": {
+    "name": "Apple II"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 30,
+  "fields": {
+    "name": "Commodore / Amiga"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 31,
+  "fields": {
+    "name": "Atari 7800"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 32,
+  "fields": {
+    "name": "Atari 5200"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 33,
+  "fields": {
+    "name": "Atari 2600"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 34,
+  "fields": {
+    "name": "Atari Flashback"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 35,
+  "fields": {
+    "name": "Atari 8-bit"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 36,
+  "fields": {
+    "name": "Atari ST"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 37,
+  "fields": {
+    "name": "Atari Lynx"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 38,
+  "fields": {
+    "name": "Atari XEGS"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 39,
+  "fields": {
+    "name": "Genesis"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 40,
+  "fields": {
+    "name": "SEGA Saturn"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 41,
+  "fields": {
+    "name": "SEGA CD"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 42,
+  "fields": {
+    "name": "SEGA 32X"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 43,
+  "fields": {
+    "name": "SEGA Master System"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 44,
+  "fields": {
+    "name": "Dreamcast"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 45,
+  "fields": {
+    "name": "3DO"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 46,
+  "fields": {
+    "name": "Jaguar"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 47,
+  "fields": {
+    "name": "Game Gear"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 48,
+  "fields": {
+    "name": "Neo Geo"
+  }
+},
+{
+  "model": "games.platform",
+  "pk": 49,
+  "fields": {
+    "name": "Web"
+  }
+}
+]
