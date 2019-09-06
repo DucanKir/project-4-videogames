@@ -11,7 +11,7 @@ import requests
 class Command(BaseCommand):
     help = 'HELP'
 
-    def handle(self, *args, **options):
+    def handle(self, *_args, **_options):
         admin_user = User.objects.get(username='admin')
 
         count = 0
@@ -21,6 +21,14 @@ class Command(BaseCommand):
             json_response = response.json()
 
             for game in json_response['results']:
+
+                game_url = f"https://api.rawg.io/api/games/{game['slug']}"
+                disc_response = requests.get(game_url)
+                json_disc_response = disc_response.json()
+                description = json_disc_response['description']
+
+                print(json_disc_response['platforms'])
+                return
 
                 for raw_store in game['stores']:
                     if Store.objects.filter(url_en=raw_store['url_en']).exists():
@@ -53,6 +61,7 @@ class Command(BaseCommand):
                 game['stores'] = game_stores_ids
 
                 game['user'] = admin_user.pk
+                game['descripton'] = description
 
                 if not game['clip']:
                     continue
