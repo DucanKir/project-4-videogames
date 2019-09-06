@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import axios from 'axios'
+
 
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import { HashRouter, Route, Switch } from 'react-router-dom'
+import GamesIndex from './components/games/Games-index'
 
 import 'bulma'
+import './style.scss'
 
 class App extends React.Component {
 
@@ -16,6 +18,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          <Route path="/games" component={GamesIndex} />
         </Switch>
       </HashRouter>
     )
