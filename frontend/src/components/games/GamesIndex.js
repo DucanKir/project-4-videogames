@@ -27,11 +27,12 @@ class GameIndex extends React.Component {
                 key={game.id}
                 className="column is-half-tablet is-one-quarter-desktop"
               >
-                <Link className="column is-offset-0 is-one-fifth has-text-centered"
-                  to={`/games/${game.id}`
+                <Link className="column  has-text-centered"
+                  to={`/games/${game.id}`}
+                  key={game.id}
                 >
                   <div>
-                    <figure className="image image-user" style={{ backgroundImage: `url(${game.background_image})` }}/>
+                    <figure className="image image-user" style={{ backgroundImage: `url(${game.background_image})` }} />
                     <p className="is-6 has-text-weight-semibold">{game.name}</p>
                   </div>
                 </Link>

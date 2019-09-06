@@ -53,23 +53,21 @@ class Navbar extends React.Component {
           <div className="navbar-start">
             <Link to="/" className="navbar-item">
               <div className="navbar-brand">
-                <div className="navbar-item title">Happening</div>
+                <div className="navbar-item title">Home</div>
               </div>
             </Link>
             <div className="navbar-item has-dropdown is-hoverable">
               <div className="navbar-link">
-                Happenings
+                Games
               </div>
               <div className="navbar-dropdown">
-                <Link to="/happenings" className="navbar-item">
-                  Browse All Happenings
+                <Link to="/games/" className="navbar-item">
+                  Browse All Games
                 </Link>
-                <Link to="/happenings/search" className="navbar-item">
-                  Search by Catagory, Date or Location
+                <Link to="/games/search/" className="navbar-item">
+                  Search by Catagory
                 </Link>
-                <Link to="/happenings/new" className="navbar-item">
-                    Create A Happening
-                </Link>
+
               </div>
             </div>
             <Link to="/about" className="navbar-item">
