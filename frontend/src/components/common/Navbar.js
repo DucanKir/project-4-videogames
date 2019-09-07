@@ -32,7 +32,7 @@ class Navbar extends React.Component {
   render() {
     return (
       <nav className="navbar is-black" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
+        <div className="navbar-brand ">
           <a
             role="button"
             className="navbar-burger burger"

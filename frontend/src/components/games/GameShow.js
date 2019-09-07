@@ -16,12 +16,15 @@ class GamesShow extends React.Component {
 
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      descriptionOpen: false
+    }
 
     this.getScreenshots = this.getScreenshots.bind(this)
     this.getGenres = this.getGenres.bind(this)
     this.getPlatforms = this.getPlatforms.bind(this)
     this.getStores = this.getStores.bind(this)
+    this.openDescription = this.openDescription.bind(this)
   }
 
   componentDidMount() {
@@ -33,7 +36,7 @@ class GamesShow extends React.Component {
     const allScreenshots = this.state.game.short_screenshots
     return (
       <div>
-        <Carousel autoPlay={true} infiniteLoop={true} showThumbs={true}>
+        <Carousel  autoPlay={true} infiniteLoop={true} showThumbs={true}>
           {allScreenshots.map(screenshot =>
             <div key={screenshot.id}>
               <img  src={screenshot.image} />
@@ -47,10 +50,10 @@ class GamesShow extends React.Component {
   getGenres() {
     const allGenres = this.state.game.genres
     return (
-      <p>Genres:
+      <p className='has-text-grey-light'>Genres:
         {allGenres.map(genre =>
           <span key={genre.id}>
-          &nbsp;  <span   className='tag'> {genre.name}</span>  &nbsp;
+          &nbsp; <span   className='tag'> {genre.name}</span> &nbsp;
           </span>
         )}
       </p>
@@ -60,9 +63,9 @@ class GamesShow extends React.Component {
   getPlatforms() {
     const allPlatforms = this.state.game.platforms
     return (
-      <p>Platforms:
+      <p className='has-text-grey-light'>Platforms:
         {allPlatforms.map(platform =>
-          <span key={platform.id}>
+          <span className='has-text-white' key={platform.id}>
             &nbsp;<span className=''> {platform.name} </span>&nbsp;
           </span>
         )}
@@ -82,6 +85,12 @@ class GamesShow extends React.Component {
       </p>
     )
   }
+
+  openDescription() {
+    this.setState({ descriptionOpen: !this.state.descriptionOpen})
+
+  }
+
 
 
   render() {
@@ -115,23 +124,33 @@ class GamesShow extends React.Component {
                 <h1 className="subtitle is-6 has-text-grey-light has-text-right">based on {this.state.game.ratings_count} ratings</h1>
               </div>
             </div>
-            <div className="columns">
+            <div className="columns ">
               <div className="column">
                 <div>
                   {this.getScreenshots()}
-                  <ReactPlayer url={this.state.game.clip[0].clip}  controls volume={0}/>
+                  <ReactPlayer className="full-width" url={this.state.game.clip[0].clip}  controls volume={0}/>
                 </div>
               </div>
               <div className="column ">
                 <div className="container with-background">
                   <div className="section">
-
-                    <p className='has-text-grey-light'>Released:&nbsp; <span className='has-text-white'>{moment(this.state.game.released, 'YYYY-MM-DD').format('DD MMMM YYYY')}</span></p>
-                    <p className='has-text-grey-light'>Playtime:&nbsp;<span className='has-text-white'> {this.state.game.playtime} h</span></p>
-                    <br />
-                    <p className='has-text-grey-light'>Description:&nbsp; <span className='has-text-white'>{this.state.game.description_raw}</span></p>
-                    {this.getPlatforms()}
-                    {this.getGenres()}
+                    <div>
+                      <p className='has-text-grey-light'>Released:&nbsp; <span className='has-text-white'>{moment(this.state.game.released, 'YYYY-MM-DD').format('DD MMMM YYYY')}</span></p>
+                      <p className='has-text-grey-light'>Playtime:&nbsp;<span className='has-text-white'> {this.state.game.playtime} h</span></p>
+                      <br />
+                    </div>
+                    <div className={` ${this.state.descriptionOpen ? 'openDescription' : 'less-text'}`}>
+                      <p className='has-text-grey-light'>Description:&nbsp; <span className='has-text-white'>{this.state.game.description_raw}</span></p>
+                    </div>
+                    <div  id="read-more" className='read-more has-text-grey-light'>
+                      <a onClick={this.openDescription}>{` ${this.state.descriptionOpen ? 'Hide' : 'Read more...'}`}</a>
+                    </div>
+                    <div>
+                      <br />
+                      {this.getPlatforms()}
+                      <br />
+                      {this.getGenres()}
+                    </div>
                   </div>
                 </div>
                 <br />
