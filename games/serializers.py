@@ -1,7 +1,7 @@
 from rest_framework  import serializers
 from jwt_auth.serializers import UserSerializer
 
-from .models import Game, Genre, Platform, Screenshot, Clip, Store, Requirement
+from .models import Game, Genre, Platform, Screenshot, Clip, Store
 
 class GenreSerializer(serializers.ModelSerializer):
 
@@ -37,21 +37,21 @@ class ClipSerializer(serializers.ModelSerializer):
         model = Clip
         fields = ('id', 'clip', 'game',)
 
-class RequirementsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Requirement
-        fields = ('id', 'minimum', 'recomended', 'game')
+# class RequirementsSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Requirement
+#         fields = ('id', 'minimum', 'recomended', 'game')
 
 
 class GameSerializer(serializers.ModelSerializer):
 
     user = UserSerializer(read_only=True)
     short_screenshots = ScreenshotSerializer(many=True)
-    requirements = RequirementsSerializer(many=True)
+    # requirements = RequirementsSerializer(many=True)
 
     class Meta:
         model = Game
-        fields = ('id', 'released', 'name', 'rating', 'slug', 'genres', 'background_image', 'ratings_count', 'user', 'platforms', 'short_screenshots', 'playtime', 'clip', 'stores', 'description', 'requirements')
+        fields = ('id', 'released', 'name', 'rating', 'slug', 'genres', 'background_image', 'ratings_count', 'user', 'platforms', 'short_screenshots', 'playtime', 'clip', 'stores', 'description_raw', 'website',)
 
 
 class PopulatedGameSerializer(GameSerializer):
@@ -75,7 +75,7 @@ class GameDeserializer(serializers.ModelSerializer):
     def create(self, validated_data):
         screenshots_data = validated_data.pop('short_screenshots')
         stores_data = validated_data.pop('stores')
-        requirements_data = validated_data.pop('requirements')
+        # requirements_data = validated_data.pop('requirements')
         clip_data = validated_data.pop('clip')
         genres = validated_data.pop('genres')
         platforms = validated_data.pop('platforms')
@@ -86,6 +86,6 @@ class GameDeserializer(serializers.ModelSerializer):
         Clip.objects.create(game=game, **clip_data)
         for screenshot_data in screenshots_data:
             Screenshot.objects.create(game=game, **screenshot_data)
-        for requirement_data in requirements_data:
-            Requirement.objects.create(game=game, **requirement_data)
+        # for requirement_data in requirements_data:
+        #     Requirement.objects.create(game=game, **requirement_data)
         return game

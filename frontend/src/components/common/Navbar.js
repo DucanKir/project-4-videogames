@@ -31,7 +31,7 @@ class Navbar extends React.Component {
   // <h1 className="title">Happening</h1>
   render() {
     return (
-      <nav className="navbar is-primary" role="navigation" aria-label="main navigation">
+      <nav className="navbar is-black" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
           <a
             role="button"
@@ -78,17 +78,17 @@ class Navbar extends React.Component {
             <div className="navbar-item">
               <div className="buttons">
                 {!Auth.isAuthenticated() &&
-                  <Link to="/register" className="button is-info">
+                  <Link to="/register" className="button is-light">
                     <strong>Sign up</strong>
                   </Link>
                 }
                 {!Auth.isAuthenticated() &&
-                  <Link  to="/login" className="button is-info">
+                  <Link  to="/login" className="button is-light">
                     Log in
                   </Link>
                 }
                 {Auth.isAuthenticated() &&
-                  <Link to={`/users/${Auth.getCurrentUserId()}`} className="button is-info">
+                  <Link to={`/users/${Auth.getCurrentUserId()}`} className="button is-light">
                     My Profile
                   </Link>
                 }

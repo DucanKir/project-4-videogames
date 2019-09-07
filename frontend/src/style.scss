@@ -3,4 +3,18 @@ figure.image-user {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+
+}
+
+body {
+  background-image: url(https://etc.fdresa.org/wp-content/themes/rocketboard-v1-02/images/background/bg-b2.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+}
+
+.with-background {
+  background-color: rgba(0, 0, 0, 0.3);
 }

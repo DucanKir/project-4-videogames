@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { Carousel } from 'react-responsive-carousel'
+import StarRatings from 'react-star-ratings'
 
 
 import Auth from '../../lib/Auth'
@@ -32,7 +33,7 @@ class GamesShow extends React.Component {
     const allScreenshots = this.state.game.short_screenshots
     return (
       <div>
-        <Carousel autoPlay={true} infiniteLoop={true} showThumbs={false}>
+        <Carousel autoPlay={true} infiniteLoop={true} showThumbs={true}>
           {allScreenshots.map(screenshot =>
             <div key={screenshot.id}>
               <img  src={screenshot.image} />
@@ -46,39 +47,39 @@ class GamesShow extends React.Component {
   getGenres() {
     const allGenres = this.state.game.genres
     return (
-      <div>
+      <p>Genres:
         {allGenres.map(genre =>
-          <div key={genre.id}  className='container'>
-            <span className='tag'> {genre.name} </span>
-          </div>
+          <span key={genre.id}>
+          &nbsp;  <span   className='tag'> {genre.name}</span>  &nbsp;
+          </span>
         )}
-      </div>
+      </p>
     )
   }
 
   getPlatforms() {
     const allPlatforms = this.state.game.platforms
     return (
-      <div>
+      <p>Platforms:
         {allPlatforms.map(platform =>
-          <div key={platform.id}>
-            <span className='tag'> {platform.name} </span>
-          </div>
+          <span key={platform.id}>
+            &nbsp;<span className=''> {platform.name} </span>&nbsp;
+          </span>
         )}
-      </div>
+      </p>
     )
   }
 
   getStores() {
     const allStores = this.state.game.stores
     return (
-      <div>
+      <p>
         {allStores.map(store =>
-          <a key={store.id} href={store.url_en}>
-            <span className='tag'> {store.store} </span>
-          </a>
+          <span key={store.id}>
+            &nbsp;<a className=''  href={store.url_en}> {store.store} </a>&nbsp;
+          </span>
         )}
-      </div>
+      </p>
     )
   }
 
@@ -87,27 +88,62 @@ class GamesShow extends React.Component {
     if (!this.state.game) return <h1>Loading...</h1>
     console.log(this.state.game.short_screenshots)
     return (
-      <section className="section" >
+      <section className="section">
         <div className="container">
 
           {!this.state.game && <h2 className="title is-2">Loading...</h2>}
 
           {this.state.game && <div>
             <div className="columns">
+              <div className="column ">
+                <h1 className="title is-2 has-text-light">{this.state.game.name}</h1>
+                <a className='subtitle is-6 has-text-grey-light' href={this.state.game.website}> {this.state.game.name} Website</a>
+              </div>
+              <div className="column ">
+                <h1 className="subtitle is-4 has-text-light has-text-right">Rating:  {this.state.game.rating} </h1>
+                <div className="has-text-right">
+                  <StarRatings
+
+                    rating={+(this.state.game.rating)}
+                    starRatedColor="yellow"
+                    numberOfStars={5}
+                    starDimension="20px"
+                    starSpacing="5px"
+                    name='rating'
+                  />
+                </div>
+                <h1 className="subtitle is-6 has-text-grey-light has-text-right">based on {this.state.game.ratings_count} ratings</h1>
+              </div>
+            </div>
+            <div className="columns">
               <div className="column">
                 <div>
-                  <h1>{this.state.game.name}</h1>
-                  <figure className="image image-user" style={{ backgroundImage: `url(${this.state.game.background_image})` }} />
-                  <p>Released {moment(this.state.game.released, 'YYYY-MM-DD').format('DD MMMM YYYY')}</p>
-                  <p>Playtime {this.state.game.playtime} hrs</p>
-                  {this.state.game.description}
-                  {this.getGenres()}
                   {this.getScreenshots()}
-                  {this.getPlatforms()}
-                  {this.getStores()}
-                  <ReactPlayer url={this.state.game.clip[0].clip}  controls volume={0.5}/>
+                  <ReactPlayer url={this.state.game.clip[0].clip}  controls volume={0}/>
                 </div>
               </div>
+              <div className="column ">
+                <div className="container with-background">
+                  <div className="section">
+
+                    <p className='has-text-grey-light'>Released:&nbsp; <span className='has-text-white'>{moment(this.state.game.released, 'YYYY-MM-DD').format('DD MMMM YYYY')}</span></p>
+                    <p className='has-text-grey-light'>Playtime:&nbsp;<span className='has-text-white'> {this.state.game.playtime} h</span></p>
+                    <br />
+                    <p className='has-text-grey-light'>Description:&nbsp; <span className='has-text-white'>{this.state.game.description_raw}</span></p>
+                    {this.getPlatforms()}
+                    {this.getGenres()}
+                  </div>
+                </div>
+                <br />
+                <div className="span container with-background has-text-centered">
+                  <br />
+                  {this.getStores()}
+                  <br />
+                </div>
+              </div>
+            </div>
+            <div className="columns">
+
             </div>
           </div>}
         </div>

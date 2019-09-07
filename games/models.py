@@ -34,11 +34,12 @@ class Game(models.Model):
     rating = models.CharField(max_length=100)
     ratings_count = models.CharField(max_length=100)
     playtime = models.CharField(max_length=100)
+    website = models.CharField(max_length=1000, blank=True)
     # stores = models.CharField(max_length=100) #############]
     genres = models.ManyToManyField(Genre, related_name='games', blank=True)
     platforms = models.ManyToManyField(Platform, related_name='games', blank=True)
     stores = models.ManyToManyField(Store, related_name='games', blank=True)
-    description = models.TextField(blank=True)
+    description_raw = models.TextField()
 
 
 
@@ -56,13 +57,13 @@ class Clip(models.Model):
     def __str__(self):
         return self.clip
 
-class Requirement(models.Model):
-    minimum = models.CharField(max_length=5000)
-    recomended = models.CharField(max_length=5000)
-    game = models.ForeignKey(Game, related_name='requirements', blank=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.minimum
+# class Requirement(models.Model):
+#     minimum = models.CharField(max_length=5000)
+#     recomended = models.CharField(max_length=5000)
+#     game = models.ForeignKey(Game, related_name='requirements', blank=True, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return self.minimum
 
 
 

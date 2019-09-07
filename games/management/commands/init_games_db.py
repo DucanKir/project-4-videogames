@@ -15,6 +15,7 @@ class Command(BaseCommand):
         admin_user = User.objects.get(username='admin')
 
         count = 0
+        numberofgames = 0
         api_url = 'https://api.rawg.io/api/games?page_size=200&search='
         while count < 10:
             response = requests.get(api_url)
@@ -25,10 +26,10 @@ class Command(BaseCommand):
                 game_url = f"https://api.rawg.io/api/games/{game['slug']}"
                 disc_response = requests.get(game_url)
                 json_disc_response = disc_response.json()
-                description = json_disc_response['description']
+                description_raw = json_disc_response['description_raw']
+                game['description_raw'] = description_raw
+                game['website'] = json_disc_response['website']
 
-                print(json_disc_response['platforms'])
-                return
 
                 for raw_store in game['stores']:
                     if Store.objects.filter(url_en=raw_store['url_en']).exists():
@@ -61,7 +62,6 @@ class Command(BaseCommand):
                 game['stores'] = game_stores_ids
 
                 game['user'] = admin_user.pk
-                game['descripton'] = description
 
                 if not game['clip']:
                     continue
@@ -72,5 +72,7 @@ class Command(BaseCommand):
                 game_serializer = GameDeserializer(data=game)
                 game_serializer.is_valid(raise_exception=True)
                 game = game_serializer.save()
+                numberofgames += 1
+                print(numberofgames)
             count += 1
             api_url = json_response['next']
