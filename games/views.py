@@ -11,9 +11,12 @@ from .models import Game
 class GameList(APIView):
 
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    PAGE_SIZE = 8
 
-    def get(self, _request):
-        games = Game.objects.all()
+    def get(self, request):
+        page = int(request.query_params.get('page', 0))
+        games = Game.objects.all()[self.PAGE_SIZE*page: self.PAGE_SIZE*(page+1)]
+
         serializer = PopulatedGameSerializer(games, many=True)
         return Response(serializer.data)
 

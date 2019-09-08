@@ -1,12 +1,21 @@
 import React from 'react'
 import axios from 'axios'
 import ReactPlayer from 'react-player'
-import 'react-responsive-carousel/lib/styles/carousel.min.css'
+import '../../carousel.min.css'
 import { toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { Carousel } from 'react-responsive-carousel'
 import StarRatings from 'react-star-ratings'
+import { css } from '@emotion/core'
+import { RingLoader } from 'react-spinners'
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+    margin-top: 30vh;
+`
 
 
 import Auth from '../../lib/Auth'
@@ -28,6 +37,7 @@ class GamesShow extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     axios.get(`/api/games/${this.props.match.params.id}`)
       .then(res => this.setState({ game: res.data}))
   }
@@ -35,8 +45,8 @@ class GamesShow extends React.Component {
   getScreenshots() {
     const allScreenshots = this.state.game.short_screenshots
     return (
-      <div>
-        <Carousel  autoPlay={true} infiniteLoop={true} showThumbs={true}>
+      <div className=" ">
+        <Carousel autoPlay={true} infiniteLoop={true} showThumbs={true}>
           {allScreenshots.map(screenshot =>
             <div key={screenshot.id}>
               <img  src={screenshot.image} />
@@ -94,7 +104,19 @@ class GamesShow extends React.Component {
 
 
   render() {
-    if (!this.state.game) return <h1>Loading...</h1>
+    if (!this.state.game) return (
+      <section className="section full-height">
+        <div className='sweet-loading'>
+          <RingLoader
+            css={override}
+            sizeUnit={'px'}
+            size={50}
+            color={'white'}
+
+          />
+        </div>
+      </section>
+    )
     console.log(this.state.game.short_screenshots)
     return (
       <section className="section">
@@ -103,40 +125,55 @@ class GamesShow extends React.Component {
           {!this.state.game && <h2 className="title is-2">Loading...</h2>}
 
           {this.state.game && <div>
-            <div className="columns">
+            <div className="columns container">
               <div className="column ">
-                <h1 className="title is-2 has-text-light">{this.state.game.name}</h1>
-                <a className='subtitle is-6 has-text-grey-light' href={this.state.game.website}> {this.state.game.name} Website</a>
+                <h1 className="title is-2 has-text-light">&nbsp;{this.state.game.name}</h1>
               </div>
-              <div className="column ">
-                <h1 className="subtitle is-4 has-text-light has-text-right">Rating:  {this.state.game.rating} </h1>
-                <div className="has-text-right">
-                  <StarRatings
-
-                    rating={+(this.state.game.rating)}
-                    starRatedColor="yellow"
-                    numberOfStars={5}
-                    starDimension="20px"
-                    starSpacing="5px"
-                    name='rating'
-                  />
-                </div>
-                <h1 className="subtitle is-6 has-text-grey-light has-text-right">based on {this.state.game.ratings_count} ratings</h1>
+              <div className="column  has-text-right ">
+                <a className='subtitle is-6 has-text-grey-light is-vcentered' href={this.state.game.website}> {this.state.game.name} Website</a>
               </div>
             </div>
             <div className="columns ">
-              <div className="column">
-                <div>
+              <div className="column ">
+                <div >
                   {this.getScreenshots()}
-                  <ReactPlayer className="full-width" url={this.state.game.clip[0].clip}  controls volume={0}/>
+                  <div className="card span container with-background has-text-centered">
+                    <br />
+                    {this.getStores()}
+                    <br />
+                  </div>
+                  <br />
+                  <div>
+                    <ReactPlayer className="full-width is-centered " url={this.state.game.clip[0].clip}  controls volume={0}/>
+                  </div>
                 </div>
+                <br />
               </div>
               <div className="column ">
-                <div className="container with-background">
-                  <div className="section">
+                <div className="container">
+                  <div className="section card">
                     <div>
-                      <p className='has-text-grey-light'>Released:&nbsp; <span className='has-text-white'>{moment(this.state.game.released, 'YYYY-MM-DD').format('DD MMMM YYYY')}</span></p>
-                      <p className='has-text-grey-light'>Playtime:&nbsp;<span className='has-text-white'> {this.state.game.playtime} h</span></p>
+                      <div className="columns">
+                        <div className="column">
+                          <p className='has-text-grey-light'>Released:&nbsp; <span className='has-text-white'>{moment(this.state.game.released, 'YYYY-MM-DD').format('DD MMMM YYYY')}</span></p>
+                          <p className='has-text-grey-light'>Playtime:&nbsp;<span className='has-text-white'> {this.state.game.playtime} h</span></p>
+                        </div>
+                        <div className="column ">
+                          <div className="has-text-right">
+                            <span className="subtitle is-6 has-text-light has-text-right">Rating:&nbsp; {this.state.game.rating}&nbsp;&nbsp;</span><StarRatings
+
+                              rating={+(this.state.game.rating)}
+                              starRatedColor="yellow"
+                              numberOfStars={5}
+                              starDimension="20px"
+                              starSpacing="5px"
+                              name='rating'
+                            />
+                          </div>
+                          <h1 className="subtitle is-6 has-text-grey-light has-text-right"> {this.state.game.ratings_count} ratings</h1>
+                        </div>
+
+                      </div>
                       <br />
                     </div>
                     <div className={` ${this.state.descriptionOpen ? 'openDescription' : 'less-text'}`}>
@@ -153,12 +190,7 @@ class GamesShow extends React.Component {
                     </div>
                   </div>
                 </div>
-                <br />
-                <div className="span container with-background has-text-centered">
-                  <br />
-                  {this.getStores()}
-                  <br />
-                </div>
+
               </div>
             </div>
             <div className="columns">

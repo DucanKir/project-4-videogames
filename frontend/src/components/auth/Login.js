@@ -44,14 +44,18 @@ class Login extends React.Component {
 
   render() {
     return (
-      <section className="section">
+      <section className="section full-height">
         <div className="columns">
-          <div className="column is-half-desktop">
-            <h2 className="title is-2">Login</h2>
+          <div className="column">
+          </div>
+          <div className="column">
+          </div>
+          <div className="column is-one-third is-half-tablet">
+            <h2 className="title has-text-centered is-4 has-text-light">Login</h2>
             <div className="container">
               <form onSubmit={this.handleSubmit}>
                 <div className="field">
-                  <label className="label">Username</label>
+                  <label className="label has-text-grey-light">Username</label>
                   <div className="control">
                     <input
                       className="input"
@@ -63,7 +67,7 @@ class Login extends React.Component {
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label">Password</label>
+                  <label className="label has-text-grey-light">Password</label>
                   <div className="control">
                     <input
                       className="input"
@@ -75,21 +79,26 @@ class Login extends React.Component {
                   </div>
                   {this.state.error && <small className="help is-danger">{this.state.error}</small>}
                 </div>
-
-                <button className="button is-info">Submit</button>
+                <br />
+                <div className='has-text-centered'>
+                  <button className="button is-link is-outlined ">Submit</button>
+                </div>
               </form>
             </div>
             <br />
             <br />
-            <h3 className="title is-3 has-text-weight-medium">OR</h3>
             <br />
-            <h2 className="title is-2">Register</h2>
-            <div className="container">
+            <h2 className="title has-text-centered is-4 has-text-light">Or register</h2>
+            <div className="container has-text-centered">
               <button
-                className="button is-info"
+                className="button is-link is-outlined"
                 onClick={this.redirectToSignUp}
               >Sign Up</button>
             </div>
+          </div>
+          <div className="column">
+          </div>
+          <div className="column">
           </div>
         </div>
       </section>
