@@ -95,11 +95,9 @@ class GenreDetail(APIView):
 class PlatformsList(APIView):
 
     permission_classes = (IsAuthenticatedOrReadOnly,)
-    PAGE_SIZE = 50
 
-    def get(self, request):
-        page = int(request.query_params.get('page', 0))
-        platforms = Platform.objects.filter(games__isnull=False)[self.PAGE_SIZE*page: self.PAGE_SIZE*(page+1)]
+    def get(self, _request):
+        platforms = Platform.objects.all()
         serializer = PopulatedPlatformSerializer(platforms, many=True)
         return Response(serializer.data)
 
