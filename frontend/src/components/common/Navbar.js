@@ -2,23 +2,32 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../../lib/Auth'
 import axios from 'axios'
+import Promise from 'bluebird'
 
 class Navbar extends React.Component {
 
   constructor() {
     super()
     this.state = {
+      formData: {},
+      error: '',
       navbarOpen: false,
       genres: []
     }
     this.logout = this.logout.bind(this)
     this.toggleNavbar = this.toggleNavbar.bind(this)
     this.getGenres = this.getGenres.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.getPlatforms = this.getPlatforms.bind(this)
   }
 
   componentDidMount() {
-    axios.get('/api/genres/')
-      .then(res => this.setState({ genres: res.data}))
+    Promise.props({
+      genres: axios.get('/api/genres/').then(res => res.data),
+      platforms: axios.get('/api/platforms/').then(res => res.data)
+    })
+      .then(data => this.setState(data))
   }
 
   logout() {
@@ -42,7 +51,7 @@ class Navbar extends React.Component {
         {allGenres.map(genre =>
           <Link
             key={genre.id}
-            to={`/genres/${genre.id}`}
+            to={`/genres/${genre.name}`}
             className="navbar-item">
             {genre.name}
           </Link>
@@ -52,8 +61,38 @@ class Navbar extends React.Component {
 
   }
 
+  getPlatforms(){
+    const allPlatforms = this.state.platforms
+    console.log(allPlatforms)
+    return (
+      <div className=" ">
+        {allPlatforms.map(platform =>
+          <Link
+            key={platform.name}
+            to={`/platforms/${platform.name}`}
+            className="navbar-item">
+            {platform.name}
+          </Link>
+        )}
+      </div>
+    )
+
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.history.push(`/games/search?q=${this.state.formData.search}`)
+  }
+
+  handleChange(e) {
+    const formData = { ...this.state.formData, [e.target.name]: e.target.value }
+    this.setState({ formData, error: '' })
+  }
+
   // <h1 className="title">Happening</h1>
   render() {
+    if(!this.state.platforms) return <h1>loading</h1>
+    console.log()
     return (
       <nav className="navbar is-black" role="navigation" aria-label="main navigation">
         <div className="navbar-brand ">
@@ -75,13 +114,8 @@ class Navbar extends React.Component {
           className={`navbar-menu ${this.state.navbarOpen ? 'is-active' : ''}`}
         >
           <div className="navbar-start">
-            <Link to="/" className="navbar-item">
-              <div className="navbar-brand">
-                <div className="navbar-item title">Home</div>
-              </div>
-            </Link>
-            <Link to="/games" className="navbar-item">
-              <div className="">
+            <Link to="/games" className="navbar-brand">
+              <div className="navbar-item title">
               All games
               </div>
             </Link>
@@ -96,9 +130,32 @@ class Navbar extends React.Component {
 
               </div>
             </div>
+            <div className="navbar-item has-dropdown is-hoverable">
+              <Link to="/genres" className="navbar-item">
+                <div className="navbar-link">
+                  Platforms
+                </div>
+              </Link>
+              <div className="navbar-dropdown ">
+                {this.getPlatforms()}
+
+              </div>
+            </div>
             <Link to="/about" className="navbar-item">
             About
             </Link>
+          </div>
+          <div className="navbar-item">
+            <div className="field has-addons" >
+              <div className="control">
+                <input onChange={this.handleChange} name='search' className="input" type="text" placeholder="Find a game" />
+              </div>
+              <div className="control">
+                <a className="button is-link" onClick={this.handleSubmit}>
+                  Search
+                </a>
+              </div>
+            </div>
           </div>
           <div className="navbar-end">
             <div className="navbar-item">

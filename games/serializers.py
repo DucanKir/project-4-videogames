@@ -67,6 +67,13 @@ class PopulatedGenreSerializer(GenreSerializer):
     class Meta(GenreSerializer.Meta):
         fields = ('id', 'name', 'user', 'games',)
 
+class PopulatedPlatformSerializer(PlatformSerializer):
+
+    games = NestedGameSerializer(many=True)
+
+    class Meta(GenreSerializer.Meta):
+        fields = ('id', 'name', 'user', 'games',)
+
 
 class PopulatedGameSerializer(GameSerializer):
 

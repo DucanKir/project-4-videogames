@@ -62,11 +62,11 @@ class GenresIndex extends React.Component {
                 className="column is-half-tablet is-one-quarter-desktop"
               >
                 <Link className="column  has-text-centered"
-                  to={`/genres/${genre.id}`}
+                  to={`/genres/${genre.name}`}
                   key={genre.id}
                 >
                   <div className="card">
-                    
+
                     <p className="is-6 has-text-weight-semibold has-text-grey-light">{genre.name}</p>
                   </div>
                 </Link>

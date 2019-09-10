@@ -43,13 +43,17 @@ class GamesShow extends React.Component {
   getData(){
     Promise.props({
       game: axios.get(`/api/games/${this.props.match.params.slug}`).then(res => res.data),
-      relatedGames: axios.get(`https://api.rawg.io/api/games/${this.props.match.params.id}/suggested?page_size=6`).then(res => res.data.results)
+      relatedGames: axios.get(`https://api.rawg.io/api/games/${this.props.match.params.slug}/suggested?page_size=6`).then(res => res.data.results)
     })
       .then(data => this.setState(data))
       .catch(error => {
         if (error.response) {
-          axios.get(`https://api.rawg.io/api/games/${this.props.match.params.slug}`)
-            .then(res => this.setState({ game: res.data}))
+          Promise.props({
+            game: axios.get(`https://api.rawg.io/api/games/${this.props.match.params.slug}`).then(res => res.data),
+            relatedGames: axios.get(`https://api.rawg.io/api/games/${this.props.match.params.slug}/suggested?page_size=6`).then(res => res.data.results)
+          })
+            .then(data => this.setState(data))
+
         }
       })
   }
@@ -63,7 +67,6 @@ class GamesShow extends React.Component {
     if(prevProps.match.params.id !== this.props.match.params.id) {
       window.scrollTo(0, 0)
       this.getData()
-
     }
   }
 
@@ -91,7 +94,7 @@ class GamesShow extends React.Component {
           <Carousel autoPlay={true} infiniteLoop={true} showThumbs={true}>
             {allScreenshots.map(screenshot =>
               <div key={screenshot}>
-                <img  src={screenshot.image} />
+                <img  src={screenshot} />
               </div>
             )}
           </Carousel>
@@ -105,22 +108,21 @@ class GamesShow extends React.Component {
       const allGenres = this.state.game.genres
       return (
         <p className='has-text-grey-light'>Genres:
-        {allGenres.map(genre =>
-          <Link className="column  has-text-centered" style={{display: 'inline-flex'}}
-          to={`/genres/${genre.id}`}
-          key={genre.id}
-          >
-          <span key={genre.id}>
-          &nbsp; <span   className='tag'> {genre.name}</span> &nbsp;
-          </span>
-          </Link>
-        )}
+          {allGenres.map(genre =>
+            <Link className="column  has-text-centered" style={{display: 'inline-flex'}}
+              to={`/genres/${genre.name}`}
+              key={genre.id}
+            >
+              <span key={genre.id}>
+              &nbsp; <span   className='tag'> {genre.name}</span> &nbsp;
+              </span>
+            </Link>
+          )}
         </p>
       )
 
-    } else {
-      return <h1>no genres</h1>
     }
+    return <h1>no genres</h1>
   }
 
   getPlatforms() {
@@ -137,12 +139,24 @@ class GamesShow extends React.Component {
       )
 
     } else {
-      return <h1>no platforms</h1>
+      const allPlatforms = []
+      this.state.game.platforms.map(platform => {
+        allPlatforms.push({name: platform.platform.name})
+      })
+      return (
+        <p className='has-text-grey-light'>Platforms:
+          {allPlatforms.map(platform =>
+            <span className='has-text-white' key={platform.name}>
+            &nbsp;<span className=''> {platform.name} </span>&nbsp;
+            </span>
+          )}
+        </p>
+      )
     }
   }
 
   getStores() {
-    if(this.state.game.stores[0].name) {
+    if(!this.state.game.stores[0].store.slug) {
       const allStores = this.state.game.stores
       return (
         <p>
@@ -153,9 +167,20 @@ class GamesShow extends React.Component {
           )}
         </p>
       )
-
     } else {
-    return <h1>No stores<h1>
+      const allStores = []
+      this.state.game.stores.map(store => {
+        allStores.push({store: store.store.name, url_en: store.url})
+      })
+      return (
+        <p>
+          {allStores.map(store =>
+            <span key={store.url_en}>
+            &nbsp;<a className=''  href={store.url_en}> {store.store} </a>&nbsp;
+            </span>
+          )}
+        </p>
+      )
     }
   }
 
@@ -208,7 +233,6 @@ class GamesShow extends React.Component {
         </div>
       </section>
     )
-    console.log(this.state.game)
     return (
       <section className="section">
         <div className="container">

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 import jwt
 from .serializers import UserSerializer
+import datetime
 
 class RegisterView(APIView):
 
@@ -34,5 +35,11 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed({'message': 'Invalid credentials'})
 
-        token = jwt.encode({'sub': user.id}, settings.SECRET_KEY, algorithm='HS256')
-        return Response({'token':token, 'message':'Welcome back %s!' % user.username})
+        payload = {
+            'sub': user.id,
+            'iat': datetime.datetime.utcnow(),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=6)
+        }
+
+        token = jwt.encode(payload, settings.SECRET_KEY, algorithm='HS256')
+        return Response({'token': token, 'user': user.id})

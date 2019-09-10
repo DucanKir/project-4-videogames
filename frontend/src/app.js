@@ -9,6 +9,8 @@ import GamesIndex from './components/games/GamesIndex'
 import GameShow from './components/games/GameShow'
 import GenresIndex from './components/games/GenresIndex'
 import GenreShow from './components/games/GenreShow'
+import PlatformShow from './components/games/PlatformShow'
+import Search from './components/games/Search'
 import Navbar from './components/common/Navbar'
 
 import 'bulma'
@@ -23,6 +25,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/games/:slug" component={GameShow} />
           <Route path="/genres/:id" component={GenreShow} />
+          <Route path="/platforms/:id" component={PlatformShow} />
           <Route path="/register" component={Register} />
           <Route path="/genres" component={GenresIndex} />
           <Route path="/login" component={Login} />
