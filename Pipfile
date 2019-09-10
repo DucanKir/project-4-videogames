@@ -11,6 +11,7 @@ djangorestframework = "*"
 pyjwt = "*"
 requests = "*"
 react-star-ratings = "*"
+bluebird = "*"
 
 [requires]
 python_version = "3.7"

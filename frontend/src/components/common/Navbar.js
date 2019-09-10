@@ -1,16 +1,24 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import Auth from '../../lib/Auth'
+import axios from 'axios'
 
 class Navbar extends React.Component {
 
   constructor() {
     super()
     this.state = {
-      navbarOpen: false
+      navbarOpen: false,
+      genres: []
     }
     this.logout = this.logout.bind(this)
     this.toggleNavbar = this.toggleNavbar.bind(this)
+    this.getGenres = this.getGenres.bind(this)
+  }
+
+  componentDidMount() {
+    axios.get('/api/genres/')
+      .then(res => this.setState({ genres: res.data}))
   }
 
   logout() {
@@ -26,6 +34,22 @@ class Navbar extends React.Component {
     if(prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({ navbarOpen: false})
     }
+  }
+  getGenres(){
+    const allGenres = this.state.genres
+    return (
+      <div className=" ">
+        {allGenres.map(genre =>
+          <Link
+            key={genre.id}
+            to={`/genres/${genre.id}`}
+            className="navbar-item">
+            {genre.name}
+          </Link>
+        )}
+      </div>
+    )
+
   }
 
   // <h1 className="title">Happening</h1>
@@ -56,17 +80,19 @@ class Navbar extends React.Component {
                 <div className="navbar-item title">Home</div>
               </div>
             </Link>
-            <div className="navbar-item has-dropdown is-hoverable">
-              <div className="navbar-link">
-                Games
+            <Link to="/games" className="navbar-item">
+              <div className="">
+              All games
               </div>
-              <div className="navbar-dropdown">
-                <Link to="/games/" className="navbar-item">
-                  Browse All Games
-                </Link>
-                <Link to="/games/search/" className="navbar-item">
-                  Search by Catagory
-                </Link>
+            </Link>
+            <div className="navbar-item has-dropdown is-hoverable">
+              <Link to="/genres" className="navbar-item">
+                <div className="navbar-link">
+                  Genre
+                </div>
+              </Link>
+              <div className="navbar-dropdown ">
+                {this.getGenres()}
 
               </div>
             </div>

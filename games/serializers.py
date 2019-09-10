@@ -1,6 +1,6 @@
 from rest_framework  import serializers
 from jwt_auth.serializers import UserSerializer
-
+# from django.core.paginator import Paginator
 from .models import Game, Genre, Platform, Screenshot, Clip, Store
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -52,6 +52,20 @@ class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
         fields = ('id', 'released', 'name', 'rating', 'slug', 'genres', 'background_image', 'ratings_count', 'user', 'platforms', 'short_screenshots', 'playtime', 'clip', 'stores', 'description_raw', 'website',)
+
+
+class NestedGameSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Game
+        fields = ('id', 'released', 'name', 'rating', 'slug', 'background_image', 'platforms', 'playtime', 'description_raw',)
+
+class PopulatedGenreSerializer(GenreSerializer):
+
+    games = NestedGameSerializer(many=True)
+
+    class Meta(GenreSerializer.Meta):
+        fields = ('id', 'name', 'user', 'games',)
 
 
 class PopulatedGameSerializer(GameSerializer):
