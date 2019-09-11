@@ -3,6 +3,9 @@ import { Link, withRouter } from 'react-router-dom'
 import Auth from '../../lib/Auth'
 import axios from 'axios'
 import Promise from 'bluebird'
+import Dropdown from 'react-dropdown'
+import 'react-dropdown/style.css'
+
 
 class Navbar extends React.Component {
 
@@ -12,7 +15,8 @@ class Navbar extends React.Component {
       formData: {},
       error: '',
       navbarOpen: false,
-      genres: []
+      genres: [],
+      searchResults: []
     }
     this.logout = this.logout.bind(this)
     this.toggleNavbar = this.toggleNavbar.bind(this)
@@ -20,6 +24,8 @@ class Navbar extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.getPlatforms = this.getPlatforms.bind(this)
+    this.getSearchResults = this.getSearchResults.bind(this)
+    this.hideSearchResults = this.hideSearchResults.bind(this)
   }
 
   componentDidMount() {
@@ -39,11 +45,11 @@ class Navbar extends React.Component {
     this.setState({ navbarOpen: !this.state.navbarOpen})
   }
 
-  componentDidUpdate(prevProps) {
-    if(prevProps.location.pathname !== this.props.location.pathname) {
-      this.setState({ navbarOpen: false})
-    }
+  hideSearchResults() {
+    this.refs.field.value = ''
+    this.setState({searchResults: []})
   }
+
   getGenres(){
     const allGenres = this.state.genres
     return (
@@ -63,7 +69,6 @@ class Navbar extends React.Component {
 
   getPlatforms(){
     const allPlatforms = this.state.platforms
-    console.log(allPlatforms)
     return (
       <div className=" ">
         {allPlatforms.map(platform =>
@@ -79,9 +84,35 @@ class Navbar extends React.Component {
 
   }
 
+  getSearchResults() {
+    if(this.state.formData !== "") {
+      const allSearchedGames = this.state.searchResults
+      console.log(allSearchedGames)
+      if (allSearchedGames.length>0) {
+        return (
+          <div className="container with-background-black">
+          {allSearchedGames.map(game =>
+            <Link key={game.id} to={`/games/${game.slug}`} onClick={this.hideSearchResults}>
+            <div className='columns'>
+            <div className='column is-one-third'>
+            <figure className="image image-user figure-height" style={{ backgroundImage: `url(${game.background_image})` }} />
+            </div>
+            <div className='column'>
+            <h1  className="subtitle is-6 has-text-white">{game.name}</h1>
+            </div>
+            </div>
+            </Link>
+          )}
+          </div>
+        )
+      }
+    }
+  }
+
   handleSubmit(e) {
     e.preventDefault()
-    this.props.history.push(`/games/search?q=${this.state.formData.search}`)
+    axios.get(`api/games/?page=0&search=${this.state.formData.search}`)
+      .then(res => this.setState({ searchResults: res.data }))
   }
 
   handleChange(e) {
@@ -92,7 +123,6 @@ class Navbar extends React.Component {
   // <h1 className="title">Happening</h1>
   render() {
     if(!this.state.platforms) return <h1>loading</h1>
-    console.log()
     return (
       <nav className="navbar is-black" role="navigation" aria-label="main navigation">
         <div className="navbar-brand ">
@@ -114,10 +144,10 @@ class Navbar extends React.Component {
           className={`navbar-menu ${this.state.navbarOpen ? 'is-active' : ''}`}
         >
           <div className="navbar-start">
-            
-            <Link to="/games" className="navbar-brand">
+
+            <Link to="/" className="navbar-brand">
               <div className="navbar-item title">
-              All games
+              Home
               </div>
             </Link>
             <div className="navbar-item has-dropdown is-hoverable">
@@ -147,16 +177,22 @@ class Navbar extends React.Component {
             </Link>
           </div>
           <div className="navbar-item">
-            <div className="field has-addons" >
-              <div className="control">
-                <input onChange={this.handleChange} name='search' className="input" type="text" placeholder="Find a game" />
+            <form onSubmit={this.handleSubmit}>
+              <div className="field has-addons">
+                <div className="control">
+                  <input ref="field" onChange={this.handleChange} name='search' className="input is-small input-width" type="text" placeholder="Find a game" />
+                </div>
+                <div className="control">
+                  <button className="button is-link is-small">
+                    Search
+                  </button>
+                </div>
+
+                <div className="search-results">
+                {this.state.searchResults.length>0 && this.getSearchResults()}
+                </div>
               </div>
-              <div className="control">
-                <a className="button is-link" onClick={this.handleSubmit}>
-                  Search
-                </a>
-              </div>
-            </div>
+            </form>
           </div>
           <div className="navbar-end">
             <div className="navbar-item">

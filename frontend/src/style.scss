@@ -40,6 +40,10 @@ body {
 .with-background {
   background-color: rgba(0, 0, 0, 0.3);
 }
+.with-background-black {
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 10px;
+}
 .with-white-background {
   background-color: rgba(225, 225, 225, 0.7);
 }
@@ -84,4 +88,13 @@ figure.figure-height {
   position:absolute;
   width:100%;
   bottom:0px;
+}
+
+.input-width {
+  width: 300px;
+}
+
+.search-results {
+  position: absolute;
+  top: 50px;
 }

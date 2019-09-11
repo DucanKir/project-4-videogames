@@ -48,7 +48,7 @@ class About extends React.Component {
     return (
       <div className="full-height">
 
-        <div className="container">
+        <div className="">
           <div className="section ">
 
             <div className="container">
@@ -57,7 +57,7 @@ class About extends React.Component {
                 <div className="column">
                   <div className="section">
                     <h1 className="title is-2 has-text-light">About</h1>
-                    <p className="has-text-light"><span className="title is-6 has-text-light">Video Games Website</span> is a project created by <a href="https://github.com/DucanKir">Lana Kirilenko</a>, on the General Assembly Sofware Engineering Immersive course in London.</p>
+                    <p className="has-text-light"><span className="title is-6 has-text-light">Video Games Website</span> is a project created by <a href="https://github.com/DucanKir">Lana Kirilenko</a>, during the General Assembly Software Engineering Immersive course in London.</p>
                     <br />
                     <p className="has-text-light">Tasked with creating a full-stack web application, I used <a href="https://rawg.io/apidocs">RAWG Video Games Database API</a> and the following technologies</p>
                     <br />
@@ -83,11 +83,11 @@ class About extends React.Component {
                       <div className="column is-half">
                       </div>
                     </div>
-                    <p className="has-text-light">to build a website which allows users to search for video games, sorted by genres and platforms. </p>
+                    <p className="has-text-light">to build a website which allows users to search for video games, sort by genres and gaming platforms. </p>
                     <br />
-                    <p className="has-text-light">This project was created in 7 days, including concept development, .</p>
+                    <p className="has-text-light">This project was created in 7 days, including concept development, wireframes, database design, backend and frontend development.</p>
                     <br />
-                    <p className="has-text-light">We learned to work effectively as a team, and how to manage version control using Git and GitHub. The project improved our understanding of the development of full-stack web applications and the underlying technologies used to build these.
+                    <p className="has-text-light">The project improved my understanding of the development of full-stack web applications and the underlying technologies used to build these.
                     </p>
                     <br />
                   </div>

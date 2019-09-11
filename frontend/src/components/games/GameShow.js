@@ -65,7 +65,7 @@ class GamesShow extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.match.params.id !== this.props.match.params.id) {
+    if(prevProps.match.params.slug !== this.props.match.params.slug) {
       window.scrollTo(0, 0)
       this.getData()
     }

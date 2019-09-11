@@ -8,6 +8,7 @@ from .serializers import GameSerializer, PopulatedGameSerializer, GenreSerialize
 from .models import Game, Genre, Platform
 
 # Create your views here.
+
 class GameList(APIView):
 
     permission_classes = (IsAuthenticatedOrReadOnly,)
@@ -16,12 +17,17 @@ class GameList(APIView):
     def get(self, request):
         page = int(request.query_params.get('page', 0))
         genre_id = int(request.query_params.get('genre', 0))
+        search = request.query_params.get('search')
 
-        if not genre_id:
-            games = Game.objects.all()
+        if genre_id:
+            games = Game.objects.filter(genres__id=genre_id)
+
+        elif search:
+            games = Game.objects.filter(name__contains=search)
 
         else:
-            games = Game.objects.filter(genres__id=genre_id)
+            games = Game.objects.all()
+
 
         serializer = PopulatedGameSerializer(games[self.PAGE_SIZE*page: self.PAGE_SIZE*(page+1)], many=True)
         return Response(serializer.data)

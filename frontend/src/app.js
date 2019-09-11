@@ -11,6 +11,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom'
 import GamesIndex from './components/games/GamesIndex'
 import GameShow from './components/games/GameShow'
 import GenresIndex from './components/games/GenresIndex'
+import PlatformsIndex from './components/games/PlatformsIndex'
 import GenreShow from './components/games/GenreShow'
 import PlatformShow from './components/games/PlatformShow'
 import Search from './components/games/Search'
@@ -31,10 +32,11 @@ class App extends React.Component {
           <Route path="/genres/:id" component={GenreShow} />
           <Route path="/platforms/:id" component={PlatformShow} />
           <Route path="/register" component={Register} />
+          <Route path="/platforms" component={PlatformsIndex} />
           <Route path="/genres" component={GenresIndex} />
           <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
-          <Route path="/games" component={GamesIndex} />
+          <Route path="/" component={GamesIndex} />
         </Switch>
       </HashRouter>
     )
