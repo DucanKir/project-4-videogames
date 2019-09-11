@@ -10,8 +10,8 @@ django = "*"
 djangorestframework = "*"
 pyjwt = "*"
 requests = "*"
-react-star-ratings = "*"
-bluebird = "*"
+django-heroku = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"

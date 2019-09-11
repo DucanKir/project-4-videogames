@@ -162,7 +162,7 @@ class Navbar extends React.Component {
               </div>
             </div>
             <div className="navbar-item has-dropdown is-hoverable">
-              <Link to="/genres" className="navbar-item">
+              <Link to="/platforms" className="navbar-item">
                 <div className="navbar-link">
                   Platforms
                 </div>

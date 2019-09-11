@@ -14,7 +14,6 @@ import GenresIndex from './components/games/GenresIndex'
 import PlatformsIndex from './components/games/PlatformsIndex'
 import GenreShow from './components/games/GenreShow'
 import PlatformShow from './components/games/PlatformShow'
-import Search from './components/games/Search'
 import About from './components/pages/About'
 import Navbar from './components/common/Navbar'
 
