@@ -10,6 +10,7 @@ import StarRatings from 'react-star-ratings'
 import { css } from '@emotion/core'
 import { RingLoader } from 'react-spinners'
 import Promise from 'bluebird'
+import Favicon from 'react-favicon'
 
 const override = css`
     display: block;
@@ -317,6 +318,7 @@ class GamesShow extends React.Component {
             </div>
           </div>}
         </div>
+        <a href="https://icons8.com/icon/7317/game-controller">Game Controller icon by Icons8</a>
       </section>
     )
   }

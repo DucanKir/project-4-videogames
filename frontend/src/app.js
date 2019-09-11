@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/free-solid-svg-icons'
+import '@fortawesome/react-fontawesome'
 
 
 import Register from './components/auth/Register'
@@ -11,6 +14,7 @@ import GenresIndex from './components/games/GenresIndex'
 import GenreShow from './components/games/GenreShow'
 import PlatformShow from './components/games/PlatformShow'
 import Search from './components/games/Search'
+import About from './components/pages/About'
 import Navbar from './components/common/Navbar'
 
 import 'bulma'
@@ -28,6 +32,7 @@ class App extends React.Component {
           <Route path="/platforms/:id" component={PlatformShow} />
           <Route path="/register" component={Register} />
           <Route path="/genres" component={GenresIndex} />
+          <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
           <Route path="/games" component={GamesIndex} />
         </Switch>

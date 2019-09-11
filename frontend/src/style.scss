@@ -13,6 +13,15 @@ figure.image-user {
 
 }
 
+figure.image-me {
+  height: 300px;
+  width: 300px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
 
 body {
   background-image: url(https://www.splitshire.com/wp-content/uploads/2015/03/SplitShire-8098-1800x1200.jpg);
@@ -30,6 +39,9 @@ body {
 
 .with-background {
   background-color: rgba(0, 0, 0, 0.3);
+}
+.with-white-background {
+  background-color: rgba(225, 225, 225, 0.7);
 }
 
 .less-text {
@@ -59,4 +71,17 @@ height: 100%;
 }
 figure.figure-height {
   height: 70px;
+}
+
+.with-background-image {
+  background-image: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/VgUL7MqLl/abstract-background-of-black-honeycombs_eac1kxgol__F0000.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer-white {
+  position:absolute;
+  width:100%;
+  bottom:0px;
 }

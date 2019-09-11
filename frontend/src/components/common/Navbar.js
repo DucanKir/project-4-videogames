@@ -114,6 +114,7 @@ class Navbar extends React.Component {
           className={`navbar-menu ${this.state.navbarOpen ? 'is-active' : ''}`}
         >
           <div className="navbar-start">
+            
             <Link to="/games" className="navbar-brand">
               <div className="navbar-item title">
               All games
