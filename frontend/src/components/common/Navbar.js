@@ -87,6 +87,13 @@ class Navbar extends React.Component {
           )}
           </div>
         )
+      } else {
+        return (
+          <div className="container with-background-black">
+            <p className="has-text-light">Can't find this game :( </p>
+            <p className="has-text-light">Please try another one</p>
+          <div>
+        )
       }
     }
   }
