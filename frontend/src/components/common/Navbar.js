@@ -23,7 +23,6 @@ class Navbar extends React.Component {
     this.getGenres = this.getGenres.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.getPlatforms = this.getPlatforms.bind(this)
     this.getSearchResults = this.getSearchResults.bind(this)
     this.hideSearchResults = this.hideSearchResults.bind(this)
   }
@@ -53,30 +52,13 @@ class Navbar extends React.Component {
   getGenres(){
     const allGenres = this.state.genres
     return (
-      <div className=" ">
+      <div className="navbar-dropdown">
         {allGenres.map(genre =>
           <Link
             key={genre.id}
             to={`/genres/${genre.name}`}
             className="navbar-item">
             {genre.name}
-          </Link>
-        )}
-      </div>
-    )
-
-  }
-
-  getPlatforms(){
-    const allPlatforms = this.state.platforms
-    return (
-      <div className=" ">
-        {allPlatforms.map(platform =>
-          <Link
-            key={platform.name}
-            to={`/platforms/${platform.name}`}
-            className="navbar-item">
-            {platform.name}
           </Link>
         )}
       </div>
@@ -125,102 +107,92 @@ class Navbar extends React.Component {
     if(!this.state.platforms) return <h1>loading</h1>
     return (
       <nav className="navbar is-black" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand ">
-          <a
-            role="button"
-            className="navbar-burger burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-            onClick={this.toggleNavbar}
+        <div className="container">
+          <div className="navbar-brand ">
+            <a
+              role="button"
+              className="navbar-burger burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbarBasicExample"
+              onClick={this.toggleNavbar}
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <div
+            className={`navbar-menu ${this.state.navbarOpen ? 'is-active' : ''}`}
           >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
+            <div className="navbar-start">
 
-        <div
-          className={`navbar-menu ${this.state.navbarOpen ? 'is-active' : ''}`}
-        >
-          <div className="navbar-start">
-
-            <Link to="/" className="navbar-brand">
-              <div className="navbar-item title">
-              Home
-              </div>
-            </Link>
-            <div className="navbar-item has-dropdown is-hoverable">
-              <Link to="/genres" className="navbar-item">
-                <div className="navbar-link">
-                  Genre
+              <Link to="/" className="navbar-brand">
+                <div className="navbar-item title">
+                Home
                 </div>
               </Link>
-              <div className="navbar-dropdown ">
+              <div className="navbar-item has-dropdown is-hoverable">
+                <div className="navbar-link">
+                  Genres
+                </div>
                 {this.getGenres()}
-
               </div>
-            </div>
-            <div className="navbar-item has-dropdown is-hoverable">
+
               <Link to="/platforms" className="navbar-item">
-                <div className="navbar-link">
-                  Platforms
-                </div>
+                Platforms
               </Link>
-              <div className="navbar-dropdown ">
-                {this.getPlatforms()}
-
-              </div>
+              <Link to="/about" className="navbar-item">
+                About
+              </Link>
             </div>
-            <Link to="/about" className="navbar-item">
-            About
-            </Link>
-          </div>
-          <div className="navbar-item">
-            <form onSubmit={this.handleSubmit}>
-              <div className="field has-addons">
-                <div className="control">
-                  <input ref="field" onChange={this.handleChange} name='search' className="input is-small input-width" type="text" placeholder="Find a game" />
-                </div>
-                <div className="control">
-                  <button className="button is-link is-small">
-                    Search
-                  </button>
-                </div>
-
-                <div className="search-results">
-                {this.state.searchResults.length>0 && this.getSearchResults()}
-                </div>
-              </div>
-            </form>
-          </div>
-          <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
-                {!Auth.isAuthenticated() &&
-                  <Link to="/register" className="button is-light">
-                    <strong>Sign up</strong>
-                  </Link>
-                }
-                {!Auth.isAuthenticated() &&
-                  <Link  to="/login" className="button is-light">
-                    Log in
-                  </Link>
-                }
-                {Auth.isAuthenticated() &&
-                  <Link to={`/users/${Auth.getCurrentUserId()}`} className="button is-light">
-                    My Profile
-                  </Link>
-                }
-                {Auth.isAuthenticated() &&
-                  <Link
-                    to="/"
-                    className="button is-dark"
-                    onClick={this.logout}
-                  >
-                    Logout
-                  </Link>
-                }
+              <form onSubmit={this.handleSubmit}>
+                <div className="field has-addons">
+                  <div className="control">
+                    <input ref="field" onChange={this.handleChange} name='search' className="input is-small input-width" type="text" placeholder="Find a game" />
+                  </div>
+                  <div className="control">
+                    <button className="button is-link is-small">
+                      Search
+                    </button>
+                  </div>
+
+                  <div className="search-results">
+                  {this.state.searchResults.length>0 && this.getSearchResults()}
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div className="navbar-end">
+              <div className="navbar-item">
+                <div className="buttons">
+                  {!Auth.isAuthenticated() &&
+                    <Link to="/register" className="button is-light">
+                      <strong>Sign up</strong>
+                    </Link>
+                  }
+                  {!Auth.isAuthenticated() &&
+                    <Link  to="/login" className="button is-light">
+                      Log in
+                    </Link>
+                  }
+                  {Auth.isAuthenticated() &&
+                    <Link to={`/users/${Auth.getCurrentUserId()}`} className="button is-light">
+                      My Profile
+                    </Link>
+                  }
+                  {Auth.isAuthenticated() &&
+                    <Link
+                      to="/"
+                      className="button is-dark"
+                      onClick={this.logout}
+                    >
+                      Logout
+                    </Link>
+                  }
+                </div>
               </div>
             </div>
           </div>
