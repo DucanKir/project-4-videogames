@@ -1,11 +1,15 @@
 # Project 4: Video Games Website
 
 ## Description:
-Video Games Website is a project that was created during General Assembly Software Engineering Immersive course, London. It allows users to search for video games, sort by gaming platform and genre. Each game has description, screenshots, video, links to stores and website. For creating a database I used [RAWG Video Games Database API](https://rawg.io/apidocs)
+Video Games Website is a project that was created during General Assembly Software Engineering Immersive course, London. It allows users to search for video games, related games, sort by gaming platform and genre. Each game has description, screenshots, video, links to stores and website. For creating a database I used [RAWG Video Games Database API](https://rawg.io/apidocs)
 
 <!-- ![ezgif com-video-to-gif](https://user-images.githubusercontent.com/51081298/61522791-fb0f7580-aa0a-11e9-9d2d-e510de2a2b51.gif) -->
 
 ![screenshot](https://i.imgur.com/Sr7KxYS.png)
+![screenshot](https://i.imgur.com/78r2PwQ.png)
+![screenshot](https://i.imgur.com/1G3nYdL.png)
+![screenshot](https://i.imgur.com/UtMTxRm.png)
+![screenshot](https://i.imgur.com/5ryNXVW.png)
 
 ## Brief:
 * Database design
