@@ -63,7 +63,7 @@ class GameIndex extends React.Component {
     )
 
     return (
-      <section className="section">
+      <section className="section full-height">
         <div className="container">
           <div className="container">
             <div className=" columns">

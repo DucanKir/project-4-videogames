@@ -163,7 +163,7 @@ class GamesShow extends React.Component {
         <p>
           {allStores.map(store =>
             <span key={store.id}>
-            &nbsp;<a className=''  href={store.url_en}> {store.store} </a>&nbsp;
+            &nbsp;<a className=''  href={store.url_en} target="_blank"> {store.store} </a>&nbsp;
             </span>
           )}
         </p>

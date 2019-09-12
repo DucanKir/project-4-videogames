@@ -27,12 +27,24 @@ class Navbar extends React.Component {
     this.hideSearchResults = this.hideSearchResults.bind(this)
   }
 
+
   componentDidMount() {
     Promise.props({
       genres: axios.get('/api/genres/').then(res => res.data),
       platforms: axios.get('/api/platforms/').then(res => res.data)
     })
       .then(data => this.setState(data))
+  }
+
+  hideSearchResults() {
+    this.refs.field.value = ''
+    this.setState({searchResults: []})
+  }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.location.pathname !== this.props.location.pathname) {
+      this.hideSearchResults()
+    }
   }
 
   logout() {
@@ -44,10 +56,6 @@ class Navbar extends React.Component {
     this.setState({ navbarOpen: !this.state.navbarOpen})
   }
 
-  hideSearchResults() {
-    this.refs.field.value = ''
-    this.setState({searchResults: []})
-  }
 
   getGenres(){
     const allGenres = this.state.genres
@@ -68,21 +76,20 @@ class Navbar extends React.Component {
 
   getSearchResults() {
     if(this.state.formData !== "") {
-      const allSearchedGames = this.state.searchResults
-      console.log(allSearchedGames)
-      if (allSearchedGames.length>0) {
+      if (this.state.searchResults.length>0 && this.state.searchResults !== 'notfound') {
+        const allSearchedGames = this.state.searchResults
         return (
           <div className="container with-background-black">
           {allSearchedGames.map(game =>
             <Link key={game.id} to={`/games/${game.slug}`} onClick={this.hideSearchResults}>
-            <div className='columns'>
-            <div className='column is-one-third'>
-            <figure className="image image-user figure-height" style={{ backgroundImage: `url(${game.background_image})` }} />
-            </div>
-            <div className='column'>
-            <h1  className="subtitle is-6 has-text-white">{game.name}</h1>
-            </div>
-            </div>
+              <div className='columns'>
+                <div className='column is-one-third'>
+                  <figure className="image image-user figure-height" style={{ backgroundImage: `url(${game.background_image})` }} />
+                </div>
+                <div className='column'>
+                  <h1  className="subtitle is-6 has-text-white">{game.name}</h1>
+                </div>
+              </div>
             </Link>
           )}
           </div>
@@ -90,9 +97,9 @@ class Navbar extends React.Component {
       } else {
         return (
           <div className="container with-background-black">
-            <p className="has-text-light">Can't find this game :( </p>
+            <p className="has-text-light">Can't find this game </p>
             <p className="has-text-light">Please try another one</p>
-          <div>
+          </div>
         )
       }
     }
@@ -101,7 +108,15 @@ class Navbar extends React.Component {
   handleSubmit(e) {
     e.preventDefault()
     axios.get(`api/games/?page=0&search=${this.state.formData.search}`)
-      .then(res => this.setState({ searchResults: res.data }))
+      .then(res => {
+        if(res.data.length>0) {
+          this.setState({ searchResults: res.data })
+        } else {
+          this.setState({ searchResults: 'notfound' })
+        }
+      })
+
+    console.log(this.state.searchResults)
   }
 
   handleChange(e) {
