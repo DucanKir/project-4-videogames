@@ -23,7 +23,7 @@ class GameList(APIView):
             games = Game.objects.filter(genres__id=genre_id)
 
         elif search:
-            games = Game.objects.filter(name__contains=search)
+            games = Game.objects.filter(name__icontains=search)
 
         else:
             games = Game.objects.all()
