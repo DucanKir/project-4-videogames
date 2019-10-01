@@ -32,11 +32,5 @@ Video Games Website is a project that was created during General Assembly Softwa
 * Google Fonts
 * RAWG Video Games Database API
 
-## Approach Taken:
-
-## Functionality:
-
-## Wins and Blockers:
-
 ## Future Content:
 This Website was created in 7 days. In future I wold like to add extra features and functionality. For example I would implement users and user interaction as I did in project 3, so that users will be able to add games to wish list, send messages and follow each other.
